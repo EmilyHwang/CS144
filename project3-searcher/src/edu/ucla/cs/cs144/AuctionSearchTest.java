@@ -19,9 +19,9 @@ public class AuctionSearchTest {
 		String query = "star trek";
 		SearchResult[] basicResults = as.basicSearch(query, 0, 2000);
 		System.out.println("Basic Seacrh Query: " + query);
-		/*for(SearchResult result : basicResults) {
+		for(SearchResult result : basicResults) {
 			System.out.println(result.getItemId() + ": " + result.getName());
-		}*/
+		}
 		System.out.println("Received " + basicResults.length + " results");
 		
 		SearchRegion region =
