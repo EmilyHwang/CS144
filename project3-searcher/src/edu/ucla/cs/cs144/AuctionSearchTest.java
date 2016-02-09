@@ -57,13 +57,13 @@ public class AuctionSearchTest {
 			System.out.println(result.getItemId() + ": " + result.getName());
 		}*/
 		
-		/*String itemId = "1497595357";
+		System.out.println("================= getXMLDataForItemId Test ================");
+
+		String itemId = "1497595357";
 		String item = as.getXMLDataForItemId(itemId);
 		
 		System.out.println("XML data for ItemId: " + itemId);
-		System.out.println(item);*/
-
-		// Add your own test here
+		System.out.println(item);
 
 		// Latitude and Longitute
 		itemId = "1043402767";
@@ -71,5 +71,13 @@ public class AuctionSearchTest {
 		
 		System.out.println("XML data for ItemId: " + itemId);
 		System.out.println(item);
+
+		// Multiple bids
+		itemId = "1043495702";
+		item = as.getXMLDataForItemId(itemId);
+		
+		System.out.println("XML data for ItemId: " + itemId);
+		System.out.println(item);
+		
 	}
 }
