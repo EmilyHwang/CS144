@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import java.text.SimpleDateFormat;
+import java.text.DecimalFormat;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -215,8 +216,11 @@ public class AuctionSearch implements IAuctionSearch {
 
 				String locationToEnds = "";
 				if (Double.parseDouble(itemRs.getString("Latitude")) != 0.00){
-					locationToEnds = "\t<Location Latitude=\"" + itemRs.getString("Latitude") 
-																+ "\" Longitude=\"" + itemRs.getString("Longitude") +"\">"
+					String lat = String.format("%.6f", Double.parseDouble(itemRs.getString("Latitude")));
+					String lon = String.format("%.6f", Double.parseDouble(itemRs.getString("Longitude")));
+
+					locationToEnds = "\t<Location Latitude=\"" + lat 
+																+ "\" Longitude=\"" + lon +"\">"
 																+ xml_escape(itemRs.getString("Location")) + "</Location>\n";
 				} else {
 					locationToEnds = "\t<Location>" + xml_escape(itemRs.getString("Location")) + "</Location>\n";
