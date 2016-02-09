@@ -115,8 +115,9 @@ public class AuctionSearch implements IAuctionSearch {
 
 	public SearchResult[] spatialSearch(String query, SearchRegion region,
 			int numResultsToSkip, int numResultsToReturn) {
+		List<SearchResult> allResults = new ArrayList();
+		List<SearchResult> finalResultsList = new ArrayList();
 		SearchResult[] finalResults = null;
-		List<SearchResult> tempResult = new ArrayList();
 
 		// TODO: Your code here!
 		try {
@@ -124,7 +125,7 @@ public class AuctionSearch implements IAuctionSearch {
 			Statement stm = conn.createStatement();
 			// TODO: Query using basic Search
 			
-			SearchResult[] basicResults = basicSearch(query, 0, 20000);
+			SearchResult[] basicResults = basicSearch(query, 0, Integer.MAX_VALUE);
 			HashMap<String, String> basicHash = new HashMap<String, String>();
 
 			for (int i = 0; i < basicResults.length; i++){
@@ -147,15 +148,16 @@ public class AuctionSearch implements IAuctionSearch {
 				// System.out.println(temp.getItemId() + ": " + temp.getName());
 				// TODO: Make sure that before inserting to array, we need to see if id exists in the IDSet
 				if(basicHash.containsKey(id)){
-					tempResult.add(temp);
+					allResults.add(temp);
 				}
 			}
 
-			finalResults = new SearchResult[tempResult.size()];
-			for(int i = numResultsToSkip; i < tempResult.size() && i < numResultsToReturn + numResultsToSkip; i++){
-				finalResults[i] = tempResult.get(i);
+			for(int i = numResultsToSkip; i < allResults.size() && i < numResultsToReturn + numResultsToSkip; i++){
+				finalResultsList.add(allResults.get(i));
 			}
-			finalResults = tempResult.toArray(finalResults);
+			
+			finalResults = new SearchResult[finalResultsList.size()];
+			return finalResultsList.toArray(finalResults);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

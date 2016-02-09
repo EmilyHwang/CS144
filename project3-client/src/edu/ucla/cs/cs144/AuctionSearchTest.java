@@ -23,14 +23,22 @@ public class AuctionSearchTest {
 			System.out.println(result.getItemId() + ": " + result.getName());
 		}
 		
+		query = "star trek";
+		System.out.println("Basic Search Query: " + query);
+		basicResults = AuctionSearchClient.basicSearch(query, 0, 2000);
+		/*for(SearchResult result : basicResults) {
+			System.out.println(result.getItemId() + ": " + result.getName());
+		}*/
+		System.out.println("Received " + basicResults.length + " results");
+		
                 SearchRegion region =
                     new SearchRegion(33.774, -118.63, 34.201, -117.38);
                 SearchResult[] spatialResults = AuctionSearchClient.spatialSearch("camera", region, 0, 20);
                 System.out.println("Spatial Seacrh");
                 System.out.println("Received " + spatialResults.length + " results");
-                for(SearchResult result : spatialResults) {
+               /* for(SearchResult result : spatialResults) {
                         System.out.println(result.getItemId() + ": " + result.getName());
-                }
+                }*/
 
 		String itemId = "1497595357";
 		String item = AuctionSearchClient.getXMLDataForItemId(itemId);
