@@ -1,2 +1,4 @@
 *.zip
 */bin/
+*.DS_Store
+project3-searcher/build/

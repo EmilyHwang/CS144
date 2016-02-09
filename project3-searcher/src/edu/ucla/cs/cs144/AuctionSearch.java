@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import java.text.SimpleDateFormat;
-import java.text.DecimalFormat;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -69,62 +68,31 @@ public class AuctionSearch implements IAuctionSearch {
 			ScoreDoc[] hits = topDocs.scoreDocs;
 			
 			ArrayList<SearchResult> resultList = new ArrayList<SearchResult>();
-		//	HashMap<String, String> luceneMap = new HashMap<String, String>();
+			//HashMap<String, String> luceneMap = new HashMap<String, String>();
 			
 			for (int i = numResultsToSkip ; i < hits.length; i++) {
 				Document doc = searcher.doc(hits[i].doc);
 				SearchResult result = new SearchResult(doc.get("itemID"), doc.get("name"));
 				resultList.add(result);
-			//	luceneMap.put(doc.get("itemID"), doc.get("name"));
+				//luceneMap.put(doc.get("itemID"), doc.get("name"));
 			}
 			
 			//REmOVE
-		/*	Connection conn = DbManager.getConnection(true);
+			/*Connection conn = DbManager.getConnection(true);
 			Statement stm = conn.createStatement();
-			String sqlQuery = "Select ItemID, Name from Item where Name LIKE '% star %' or  Name LIKE 'star %' or  Name LIKE '% star' or Name LIKE '% star_' or Name LIKE '_star%' or Name LIKE '% trek %' or  Name LIKE 'trek %' or  Name LIKE '% trek' or Name LIKE '% trek_' or Name LIKE '_trek%'";
+			String sqlQuery = "select Item.ItemID from Item INNER JOIN ItemCategory ON Item.ItemID = ItemCategory.ItemID where CONCAT(Name, Description, Category) REGEXP '[[:<:]](star)|(trek)[[:>:]]'";
 			ResultSet rs = stm.executeQuery(sqlQuery);
 			HashMap<String, String> hash = new HashMap<String, String>();
 			int count = 0;
 			while (rs.next()){
 				String itemId = rs.getString("ItemID");
-				String name = rs.getString("Name");
+				//String name = rs.getString("Name");
 				if(!luceneMap.containsKey(itemId))
-					System.out.println("ID: " + itemId + " Name: " + name);
+					//System.out.println("ID: " + itemId);
 				
 				hash.put(itemId, "");
 				count++;
 				
-			}
-			System.out.println("Matched from Description-------v------------------------------------------");
-			sqlQuery = "Select ItemID, Description from Item where Description LIKE '% star %' or  Description LIKE 'star %' or  Description LIKE '% star' or Description LIKE '% star.' or Description LIKE '_star%' or Description LIKE '% trek %' or  Description LIKE 'trek %' or  Description LIKE '% trek' or Description LIKE '% trek.' or Description LIKE '_trek%'";
-			ResultSet rs1 = stm.executeQuery(sqlQuery);
-			while (rs1.next()){
-				String itemId = rs1.getString("ItemID");
-				String name = rs1.getString("Description");
-
-				if(!luceneMap.containsKey(itemId))
-					System.out.println("ItemId: " + itemId + " Description: " + name);
-				
-				if(!hash.containsKey(itemId)){
-					count++;
-					hash.put(itemId, "");
-				}
-				
-			}
-			
-			System.out.println("Matched from category-------------------------------------------------");
-			Statement categorystm = conn.createStatement();
-			String categoryquery = "SELECT ItemID FROM ItemCategory WHERE Category like '%star%' or Category like '%trek%'";
-			ResultSet categoryRs = categorystm.executeQuery(categoryquery);
-			
-			while(categoryRs.next()){
-				String itemId = categoryRs.getString("ItemID");
-				if(!luceneMap.containsKey(itemId))
-					System.out.println("ID: " + itemId);
-				if(!hash.containsKey(itemId)){
-					count++;
-					hash.put(itemId, "");
-				}
 			}
 			System.out.println("number: " + count);
 			
@@ -147,8 +115,9 @@ public class AuctionSearch implements IAuctionSearch {
 
 	public SearchResult[] spatialSearch(String query, SearchRegion region,
 			int numResultsToSkip, int numResultsToReturn) {
+		List<SearchResult> allResults = new ArrayList();
+		List<SearchResult> finalResultsList = new ArrayList();
 		SearchResult[] finalResults = null;
-		List<SearchResult> tempResult = new ArrayList();
 
 		// TODO: Your code here!
 		try {
@@ -156,7 +125,7 @@ public class AuctionSearch implements IAuctionSearch {
 			Statement stm = conn.createStatement();
 			// TODO: Query using basic Search
 			
-			SearchResult[] basicResults = basicSearch(query, 0, 20000);
+			SearchResult[] basicResults = basicSearch(query, 0, Integer.MAX_VALUE);
 			HashMap<String, String> basicHash = new HashMap<String, String>();
 
 			for (int i = 0; i < basicResults.length; i++){
@@ -179,15 +148,16 @@ public class AuctionSearch implements IAuctionSearch {
 				// System.out.println(temp.getItemId() + ": " + temp.getName());
 				// TODO: Make sure that before inserting to array, we need to see if id exists in the IDSet
 				if(basicHash.containsKey(id)){
-					tempResult.add(temp);
+					allResults.add(temp);
 				}
 			}
 
-			finalResults = new SearchResult[tempResult.size()];
-			for(int i = numResultsToSkip; i < tempResult.size() && i < numResultsToReturn + numResultsToSkip; i++){
-				finalResults[i] = tempResult.get(i);
+			for(int i = numResultsToSkip; i < allResults.size() && i < numResultsToReturn + numResultsToSkip; i++){
+				finalResultsList.add(allResults.get(i));
 			}
-			finalResults = tempResult.toArray(finalResults);
+			
+			finalResults = new SearchResult[finalResultsList.size()];
+			return finalResultsList.toArray(finalResults);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
