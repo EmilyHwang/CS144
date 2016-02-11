@@ -186,11 +186,8 @@ public class AuctionSearch implements IAuctionSearch {
 
 				String locationToEnds = "";
 				if (Double.parseDouble(itemRs.getString("Latitude")) != 0.00){
-					String lat = String.format("%.6f", Double.parseDouble(itemRs.getString("Latitude")));
-					String lon = String.format("%.6f", Double.parseDouble(itemRs.getString("Longitude")));
-
-					locationToEnds = "\t<Location Latitude=\"" + lat 
-																+ "\" Longitude=\"" + lon +"\">"
+					locationToEnds = "\t<Location Latitude=\"" + itemRs.getString("Latitude") 
+																+ "\" Longitude=\"" + itemRs.getString("Longitude") +"\">"
 																+ xml_escape(itemRs.getString("Location")) + "</Location>\n";
 				} else {
 					locationToEnds = "\t<Location>" + xml_escape(itemRs.getString("Location")) + "</Location>\n";
