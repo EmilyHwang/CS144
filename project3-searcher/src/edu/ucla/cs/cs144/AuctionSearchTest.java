@@ -13,9 +13,13 @@ public class AuctionSearchTest {
 	{
 		AuctionSearch as = new AuctionSearch();
 
+		System.out.println("================= Echo Test ================");	
+
 		String message = "Test message";
 		String reply = as.echo(message);
 		System.out.println("Reply: " + reply);
+		
+		System.out.println("================= basicSearch Test ================");	
 		
 		String query = "kitchenware";
 		SearchResult[] basicResults = as.basicSearch(query, 0, 2000);
@@ -50,10 +54,20 @@ public class AuctionSearchTest {
 		}*/
 		System.out.println("Received " + basicResults.length + " results");
 		
+		System.out.println("================= SpatialSearch Test ================");		
 		SearchRegion region =
 		    new SearchRegion(33.774, -118.63, 34.201, -117.38); 
 		SearchResult[] spatialResults = as.spatialSearch("camera", region, 0, 2000);
-		System.out.println("Spatial Search");
+		System.out.println("Spatial Search: camera");
+		System.out.println("Received " + spatialResults.length + " results");
+		/*for(SearchResult result : spatialResults) {
+			System.out.println(result.getItemId() + ": " + result.getName());
+		}*/
+
+		region =
+    	new SearchRegion(33.774, -118.63, 34.201, -117.38); 
+		spatialResults = as.spatialSearch("cameras", region, 0, 2000);
+		System.out.println("Spatial Search: cameras");
 		System.out.println("Received " + spatialResults.length + " results");
 		
 		spatialResults = as.spatialSearch("camera", region, 10, 20);
