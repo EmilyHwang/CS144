@@ -16,12 +16,12 @@ public class AuctionSearchTest {
 		System.out.println("Reply: " + reply);
 		
 		String query = "superman";
-		SearchResult[] basicResults = AuctionSearchClient.basicSearch(query, 0, 20);
+		SearchResult[] basicResults = AuctionSearchClient.basicSearch(query, 0, 2000);
 		System.out.println("Basic Seacrh Query: " + query);
 		System.out.println("Received " + basicResults.length + " results");
-		for(SearchResult result : basicResults) {
+		/*for(SearchResult result : basicResults) {
 			System.out.println(result.getItemId() + ": " + result.getName());
-		}
+		}*/
 		
 		query = "star trek";
 		System.out.println("Basic Search Query: " + query);

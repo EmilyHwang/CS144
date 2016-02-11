@@ -42,6 +42,7 @@ public class Indexer {
 	
 		indexDir = FSDirectory.open(new File("/var/lib/lucene/index-directory/"));
 		config = new IndexWriterConfig(Version.LUCENE_4_10_2, new StandardAnalyzer());
+		config.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
 		indexWriter = new IndexWriter(indexDir, config);
 	
 	//To index item, grab Item from database, get id, name, description. use ID and go to ItemCatagory
@@ -80,6 +81,7 @@ public class Indexer {
 			Document doc = new Document();
 			doc.add(new StringField("itemID", itemId, Field.Store.YES));
 			doc.add(new StringField("name", name, Field.Store.YES));
+			doc.add(new StringField("category", categories, Field.Store.YES));
 			doc.add(new TextField("fullSearchableText", fullSearchableText, Field.Store.NO));
 			indexWriter.addDocument(doc);
 			

@@ -1,1 +1,1 @@
-Run ant build to create AuctionSearchService.aar
+Nothing to note
