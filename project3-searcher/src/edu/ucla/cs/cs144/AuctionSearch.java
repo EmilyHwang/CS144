@@ -68,39 +68,12 @@ public class AuctionSearch implements IAuctionSearch {
 			ScoreDoc[] hits = topDocs.scoreDocs;
 			
 			ArrayList<SearchResult> resultList = new ArrayList<SearchResult>();
-			//HashMap<String, String> luceneMap = new HashMap<String, String>();
 			
 			for (int i = numResultsToSkip ; i < hits.length; i++) {
 				Document doc = searcher.doc(hits[i].doc);
 				SearchResult result = new SearchResult(doc.get("itemID"), doc.get("name"));
 				resultList.add(result);
-				//luceneMap.put(doc.get("itemID"), doc.get("name"));
 			}
-			
-			//REmOVE
-			/*Connection conn = DbManager.getConnection(true);
-			Statement stm = conn.createStatement();
-			String sqlQuery = "select Item.ItemID from Item INNER JOIN ItemCategory ON Item.ItemID = ItemCategory.ItemID where CONCAT(Name, Description, Category) REGEXP '[[:<:]](star)|(trek)[[:>:]]'";
-			ResultSet rs = stm.executeQuery(sqlQuery);
-			HashMap<String, String> hash = new HashMap<String, String>();
-			int count = 0;
-			while (rs.next()){
-				String itemId = rs.getString("ItemID");
-				//String name = rs.getString("Name");
-				if(!luceneMap.containsKey(itemId))
-					//System.out.println("ID: " + itemId);
-				
-				hash.put(itemId, "");
-				count++;
-				
-			}
-			System.out.println("number: " + count);
-			
-			System.out.println("IN lucene but not sql");
-			for(String id : luceneMap.keySet()){
-				if(!hash.containsKey(id))
-					System.out.println("ID: " + id);
-			}*/
 			
 			searchResults = new SearchResult[resultList.size()];
 			return resultList.toArray(searchResults);

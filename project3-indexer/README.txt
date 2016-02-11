@@ -1,1 +1,1 @@
-For Lucene, we chose to index on ItemID, Name, and the union of Name, Categories, and Description fields. These were chosen as indexes for more efficient text searches since the searches would be performed over these fields.
+For Lucene, we chose to index on ItemID, Name, Category and the union of Name, Categories, and Description fields. These were chosen as indexes for more efficient text searches since the searches would be performed over these fields. Description was not indexed due to its large size.
