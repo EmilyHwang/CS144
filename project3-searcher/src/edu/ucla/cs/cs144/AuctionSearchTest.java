@@ -86,6 +86,13 @@ public class AuctionSearchTest {
 		
 		System.out.println("XML data for ItemId: " + itemId);
 		System.out.println(item);
+
+		// Buyer price
+		itemId = "1043608482";
+		item = as.getXMLDataForItemId(itemId);
+		
+		System.out.println("XML data for ItemId: " + itemId);
+		System.out.println(item);
 		
 	}
 }

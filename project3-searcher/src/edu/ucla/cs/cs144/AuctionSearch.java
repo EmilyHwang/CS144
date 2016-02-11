@@ -154,11 +154,11 @@ public class AuctionSearch implements IAuctionSearch {
 				
 				String curToNum = "\t<Currently>$" + String.valueOf(itemRs.getString("Currently")) + "</Currently>\n";
 				curToNum += "\t<First_Bid>$" + String.valueOf(itemRs.getString("First_bid")) + "</First_Bid>\n";
-				if (itemRs.getString("Buy_Price") == "") curToNum += "\t<Buy_Price>$" + String.valueOf(itemRs.getString("Buy_Price")) + "</Buy_Price>\n";
+				if (!itemRs.getString("Buy_Price").equals("0.00")) curToNum += "\t<Buy_Price>$" + String.valueOf(itemRs.getString("Buy_Price")) + "</Buy_Price>\n";
 				curToNum += "\t<Number_of_Bids>" + String.valueOf(itemRs.getString("Number_of_Bids")) + "</Number_of_Bids>\n";
 
 				String locationToEnds = "";
-				if (itemRs.getString("Latitude").equals("")) {
+				if (!itemRs.getString("Latitude").equals("")) {
 					locationToEnds = "\t<Location Latitude=\"" + itemRs.getString("Latitude") 
 																+ "\" Longitude=\"" + itemRs.getString("Longitude") +"\">"
 																+ xml_escape(itemRs.getString("Location")) + "</Location>\n";
