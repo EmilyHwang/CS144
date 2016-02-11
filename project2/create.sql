@@ -1,0 +1,45 @@
+CREATE TABLE Item(
+	ItemID INT NOT NULL,
+	Name VARCHAR(200),
+	Currently DECIMAL(8,2),
+	First_Bid DECIMAL(8,2),
+	Buy_Price DECIMAL(8,2),
+	Number_of_Bids SMALLINT,
+	Location VARCHAR(100),
+	Latitude VARCHAR(20),
+	Longitude VARCHAR(20),
+	Country VARCHAR(20),
+	Started TIMESTAMP,
+	Ends TIMESTAMP,
+	SellerID VARCHAR(50) NOT NULL,
+	Description VARCHAR(4000),
+	PRIMARY KEY (ItemID)
+);
+
+CREATE TABLE Seller(
+	UserID VARCHAR(50) NOT NULL,
+	Rating SMALLINT,
+	PRIMARY KEY (UserID)
+);
+
+CREATE TABLE Bidder(
+	UserID VARCHAR(50) NOT NULL,
+	Rating SMALLINT,
+	Location VARCHAR(100),
+	Country VARCHAR(20),
+	PRIMARY KEY (UserID)
+);
+
+CREATE TABLE Bid(
+	ItemID INT NOT NULL,
+	BidderID VARCHAR(50) NOT NULL,
+	Time TIMESTAMP,
+	Amount DECIMAL(8,2),
+	CONSTRAINT BidKey PRIMARY KEY (BidderID, Time)
+);
+
+CREATE TABLE ItemCategory(
+	ItemID INT NOT NULL,
+	Category VARCHAR(100),
+	CONSTRAINT ItemCategoryKey PRIMARY KEY (ItemID, Category)
+);
