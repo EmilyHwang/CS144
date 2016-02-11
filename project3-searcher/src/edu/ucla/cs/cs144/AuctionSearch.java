@@ -153,8 +153,8 @@ public class AuctionSearch implements IAuctionSearch {
 								+ "\t<Name>" + xml_escape(itemRs.getString("Name")) + "</Name>\n";
 				
 				String curToNum = "\t<Currently>$" + String.valueOf(itemRs.getString("Currently")) + "</Currently>\n";
-				curToNum += "\t<First_Bid>$" + String.valueOf(itemRs.getString("First_bid")) + "</First_Bid>\n";
 				if (!itemRs.getString("Buy_Price").equals("0.00")) curToNum += "\t<Buy_Price>$" + String.valueOf(itemRs.getString("Buy_Price")) + "</Buy_Price>\n";
+				curToNum += "\t<First_Bid>$" + String.valueOf(itemRs.getString("First_bid")) + "</First_Bid>\n";
 				curToNum += "\t<Number_of_Bids>" + String.valueOf(itemRs.getString("Number_of_Bids")) + "</Number_of_Bids>\n";
 
 				String locationToEnds = "";
@@ -199,7 +199,7 @@ public class AuctionSearch implements IAuctionSearch {
 			ResultSet sellerRs = stm.executeQuery(sqlQuery);
 
 			if (sellerRs.next()){
-				result += "\t<Seller Rating=\"" + sellerRs.getString("Rating") + " USerID=\"" + sellerId + "\" />\n";
+				result += "\t<Seller Rating=\"" + sellerRs.getString("Rating") + " UserID=\"" + sellerId + "\" />\n";
 			}
 
 		} catch (Exception e){
@@ -228,7 +228,7 @@ public class AuctionSearch implements IAuctionSearch {
 	}
 
 	public String formBids(String itemId){
-		String result = "\t<Bids>\n";
+		String result = "";
 		try{
 			Connection conn = DbManager.getConnection(true);
 			Statement stm = conn.createStatement();
@@ -248,11 +248,13 @@ public class AuctionSearch implements IAuctionSearch {
 				bid.add(temp);
 			}
 
+			if (bid.size() == 0) return "\t<Bids />\n";
+
 			for (int i = 0 ; i < bid.size(); i++){
 				String bidString = "";
 				ResultSet bidderRs = stm.executeQuery("SELECT Rating, Location, Country FROM Bidder WHERE UserID = \"" + bid.get(i).get(0) + "\"");
 				if (bidderRs.next()){
-					bidString = "\t\t<Bid>\n\t\t\t<Bidder Rating=\"" + bidderRs.getString("Rating")
+					bidString = "\t<Bids>\n\t\t<Bid>\n\t\t\t<Bidder Rating=\"" + bidderRs.getString("Rating")
 										+ "\" UserID=\"" + bid.get(i).get(0) + "\">\n"
 										+ "\t\t\t\t<Location>" + xml_escape(bidderRs.getString("Location")) + "</Location>\n" 
 										+ "\t\t\t\t<Country>" + xml_escape(bidderRs.getString("Country")) + "</Country>\n"
