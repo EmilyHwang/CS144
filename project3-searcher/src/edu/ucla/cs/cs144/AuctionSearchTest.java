@@ -60,22 +60,10 @@ public class AuctionSearchTest {
 		SearchResult[] spatialResults = as.spatialSearch("camera", region, 0, 2000);
 		System.out.println("Spatial Search: camera");
 		System.out.println("Received " + spatialResults.length + " results");
-		/*for(SearchResult result : spatialResults) {
-			System.out.println(result.getItemId() + ": " + result.getName());
-		}*/
 
-		region =
-    	new SearchRegion(33.774, -118.63, 34.201, -117.38); 
 		spatialResults = as.spatialSearch("cameras", region, 0, 2000);
 		System.out.println("Spatial Search: cameras");
 		System.out.println("Received " + spatialResults.length + " results");
-		
-		spatialResults = as.spatialSearch("camera", region, 10, 20);
-		System.out.println("Spatial Search: Expect 20, skip 10");
-		System.out.println("Received " + spatialResults.length + " results");
-		/*for(SearchResult result : spatialResults) {
-			System.out.println(result.getItemId() + ": " + result.getName());
-		}*/
 		
 		System.out.println("================= getXMLDataForItemId Test ================");
 

@@ -158,7 +158,7 @@ public class AuctionSearch implements IAuctionSearch {
 				curToNum += "\t<Number_of_Bids>" + String.valueOf(itemRs.getString("Number_of_Bids")) + "</Number_of_Bids>\n";
 
 				String locationToEnds = "";
-				if (Double.parseDouble(itemRs.getString("Latitude")) != 0.00){
+				if (itemRs.getString("Latitude").equals("")) {
 					locationToEnds = "\t<Location Latitude=\"" + itemRs.getString("Latitude") 
 																+ "\" Longitude=\"" + itemRs.getString("Longitude") +"\">"
 																+ xml_escape(itemRs.getString("Location")) + "</Location>\n";
