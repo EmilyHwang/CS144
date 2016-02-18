@@ -20,7 +20,7 @@
 				<tbody>
 					<% for (int i = 0; i < results.length; i++) { %>
 						<tr>
-							<td><%= results[i].getItemId() %></td>
+							<td><a href="./item?id=<%= results[i].getItemId()%>" ><%= results[i].getItemId() %></a></td>
 							<td><%= results[i].getName() %></td>
 						</tr>
 					<% } %>
