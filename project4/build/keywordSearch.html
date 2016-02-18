@@ -1,15 +1,46 @@
 <html>
 	<head>
+		<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="./css/bootstrap-theme.min.css">
 	</head>
 
 	<body>
-		<h1>Search on eBay</h1>
-		<form action="./search" method="GET">
-			<input name="q" type="text" placeholder="Enter your query ..." />
-			<input name="numresultsToSkip" type="text" value="0" />
-			<input name="numresultsToReturn" type="text" value="10" />
+		<div class="container">
+			<div class="well center-block">
+				<form class="form-horizontal" action="./search" method="GET">
+					<fieldset>
+						<legend>Enter query</lengend>
+						<div class="form-group">
+				      <label for="textArea" class="col-lg-2 control-label">Query</label>
+				      <div class="col-lg-10">
+				        <input class="form-control" name="q" type="text" placeholder="Enter your query ..." />
+				      </div>
+				    </div>
 
-			<button type="submit">Search</button>
-		</form>
+				    <div class="form-group">
+				      <label for="disabledInput" class="col-lg-2 control-label">Skipping #</label>
+				      <div class="col-lg-10">
+				        <input class="form-control" id="disabledInput" name="numresultsToSkip" type="text" value="0" disabled/>
+				      </div>
+				    </div>
+
+				    <div class="form-group">
+				      <label for="disabledInput" class="col-lg-2 control-label">Return #</label>
+				      <div class="col-lg-10">
+				        <input class="form-control" id="disabledInput" name="numresultsToReturn" type="text" value="10" disabled/>
+				      </div>
+				    </div>
+
+					</fieldset>
+
+					<div class="form-group">
+			      <div class="col-lg-10 col-lg-offset-2">
+			        <button type="reset" class="btn btn-default">Cancel</button>
+			        <button type="submit" class="btn btn-primary">Submit</button>
+			      </div>
+			    </div>
+				</form>
+			</div>
+		</div>
 	</body>
 </html>

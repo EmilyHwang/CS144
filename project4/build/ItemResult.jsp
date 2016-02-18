@@ -50,7 +50,7 @@
 					</tr>
 					<tr>
 						<td>Seller Information</td>
-						<td><%= item.getSeller().get(0) + "(Rating: " + item.getSeller().get(1) + ")" %></td>
+						<td><%= item.getSeller().get(0) + " (Rating: " + item.getSeller().get(1) + ")" %></td>
 					</tr>
 					<tr>
 						<td>Description</td>
