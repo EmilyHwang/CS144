@@ -7,6 +7,19 @@
 	</head>
 	<body>
 		<div class="container">
+			<form class="form-horizontal" action="./item" method="GET">
+				<fieldset>
+					<div class="form-group">
+					  <div class="input-group">
+					    <input type="text" name="id" class="form-control">
+					    <span class="input-group-btn">
+					      <button class="btn btn-default" type="submit">Search</button>
+					    </span>
+					  </div>
+					</div>
+			  </fieldset>
+			</form>
+
 			<% Item item = (Item) request.getAttribute("item"); %>
 			<h1><%= "Search result for item: " + item.getId() %></h1>
 
