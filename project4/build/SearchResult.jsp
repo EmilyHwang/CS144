@@ -7,6 +7,21 @@
 	</head>
 	<body>
 		<div class="container">
+			<form class="form-horizontal" action="./search" method="GET">
+				<fieldset>
+					<div class="form-group">
+					  <div class="input-group">
+					    <input type="text" name="q" class="form-control">
+					    <span class="input-group-btn">
+					      <button class="btn btn-default" type="submit">Search</button>
+					    </span>
+					  </div>
+					</div>
+			    <input class="hidden" name="numresultsToSkip" type="text" value="0" />
+					<input class="hidden" name="numresultsToReturn" type="text" value="10" />
+			  </fieldset>
+			</form>
+
 			<h1>Results for "<%= request.getAttribute("q") %>"</h1>
 			<% SearchResult[] results = (SearchResult[]) request.getAttribute("results"); %>
 
