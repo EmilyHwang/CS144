@@ -38,35 +38,47 @@ public class ItemServlet extends HttpServlet implements Servlet {
     {
 			String itemId = request.getParameter("id");
 
-			AuctionSearchClient newSearch = new AuctionSearchClient();
-			String xmlResult = newSearch.getXMLDataForItemId(itemId);
+      if (itemId == "") {
+        request.setAttribute("empty", true);
+      } else {
+        request.setAttribute("empty", false);
 
-			// We are going to use Project 2 to parse the xml string
-			Document doc = null;
-			DocumentBuilder builder = null;
+  			AuctionSearchClient newSearch = new AuctionSearchClient();
+  			String xmlResult = newSearch.getXMLDataForItemId(itemId);
 
-			try {
-				DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-				factory.setValidating(false);
-				factory.setIgnoringElementContentWhitespace(true);      
-				builder = factory.newDocumentBuilder();
-				InputSource is = new InputSource(new StringReader(xmlResult));
-				doc = builder.parse(is);
-			} catch (IOException e) {
-        e.printStackTrace();
-        System.exit(3);
-      } catch (SAXException e) {
-        System.out.println("Parsing error on file ");
-        e.printStackTrace();
-        System.exit(3);
-      } catch (ParserConfigurationException e) {
-      	System.out.println("Parsing configuration error");
-      	e.printStackTrace();
-        System.exit(3);
+        if (xmlResult == "") {
+          request.setAttribute("not_found", true);
+        } else {
+          request.setAttribute("not_found", false);
+
+    			// We are going to use Project 2 to parse the xml string
+    			Document doc = null;
+    			DocumentBuilder builder = null;
+
+    			try {
+    				DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+    				factory.setValidating(false);
+    				factory.setIgnoringElementContentWhitespace(true);      
+    				builder = factory.newDocumentBuilder();
+    				InputSource is = new InputSource(new StringReader(xmlResult));
+    				doc = builder.parse(is);
+    			} catch (IOException e) {
+            e.printStackTrace();
+            System.exit(3);
+          } catch (SAXException e) {
+            System.out.println("Parsing error on file ");
+            e.printStackTrace();
+            System.exit(3);
+          } catch (ParserConfigurationException e) {
+          	System.out.println("Parsing configuration error");
+          	e.printStackTrace();
+            System.exit(3);
+          }
+
+          Item item = parseItem(doc);
+          request.setAttribute("item", item);        
+        }
       }
-
-      Item item = parseItem(doc);
-      request.setAttribute("item", item);
 			request.getRequestDispatcher("/ItemResult.jsp").forward(request, response);
     }
 
