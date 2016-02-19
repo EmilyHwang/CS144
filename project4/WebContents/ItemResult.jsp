@@ -11,7 +11,7 @@
 				<fieldset>
 					<div class="form-group">
 					  <div class="input-group">
-					    <input type="text" name="id" class="form-control">
+					    <input type="text" name="id" class="form-control" placeholder="Enter item ID">
 					    <span class="input-group-btn">
 					      <button class="btn btn-default" type="submit">Search</button>
 					    </span>
