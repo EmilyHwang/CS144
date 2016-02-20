@@ -3,6 +3,13 @@
 		<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="./css/bootstrap-theme.min.css">
 		<link rel="stylesheet" type="text/css" href="./css/custom.css">
+		<script type="text/javascript" src="js/AutoSuggestControl.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/autosuggest.css">
+        <script type="text/javascript">
+            window.onload = function () {
+                var oTextbox = new AutoSuggestControl(document.getElementById("queryBox"));        
+            }
+        </script>
 	</head>
 
 	<body>
@@ -11,23 +18,23 @@
 				<h3>Keyword Search</h3>
 				<form class="form-horizontal" action="./search" method="GET">
 					<fieldset>
-						<div class="form-group">
-				      <input class="form-control" name="q" type="text" placeholder="Enter your query ..." />
-				    </div>
+						<div class="form-group" id="queryDiv">
+						  <input class="form-control" id="queryBox" name="q" type="text" placeholder="Enter your query ..." />
+						</div>
 
-				    <div class="form-group hidden">
-				      <label for="textArea" class="col-lg-2 control-label">Skipping #</label>
-				      <div class="col-lg-10">
-				        <input class="form-control" name="numresultsToSkip" type="text" value="0" />
-				      </div>
-				    </div>
+						<div class="form-group hidden">
+						  <label for="textArea" class="col-lg-2 control-label">Skipping #</label>
+						  <div class="col-lg-10">
+							<input class="form-control" name="numresultsToSkip" type="text" value="0" />
+						  </div>
+						</div>
 
-				    <div class="form-group hidden">
-				      <label for="textArea" class="col-lg-2 control-label">Return #</label>
-				      <div class="col-lg-10">
-				        <input class="form-control" name="numresultsToReturn" type="text" value="10" />
-				      </div>
-				    </div>
+						<div class="form-group hidden">
+						  <label for="textArea" class="col-lg-2 control-label">Return #</label>
+						  <div class="col-lg-10">
+							<input class="form-control" name="numresultsToReturn" type="text" value="10" />
+						  </div>
+						</div>
 
 					</fieldset>
 
