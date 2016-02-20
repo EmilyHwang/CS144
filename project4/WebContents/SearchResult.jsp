@@ -4,14 +4,23 @@
 	    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
       <link rel="stylesheet" type="text/css" href="./css/bootstrap-theme.min.css">
       <link rel="stylesheet" type="text/css" href="./css/custom.css">
+	  <script type="text/javascript" src="js/AutoSuggestControl.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/autosuggest.css">
+        <script type="text/javascript">
+            window.onload = function () {
+                var oTextbox = new AutoSuggestControl(document.getElementById("queryBox"));        
+            }
+        </script>
 	</head>
 	<body>
 		<div class="container top-space">
 			<form class="form-horizontal" action="./search" method="GET">
 				<fieldset>
-					<div class="form-group">
+					<div class="form-group" id="queryDiv">
 					  <div class="input-group">
-					    <input type="text" name="q" class="form-control" placeholder="Search another query ...">
+						<div>
+							<input type="text" name="q" class="form-control" id="queryBox"  placeholder="Search another query ...">
+						</div>
 					    <span class="input-group-btn">
 					      <button class="btn btn-default" type="submit">Search</button>
 					    </span>

@@ -316,8 +316,8 @@ AutoSuggestControl.prototype.showSuggestions = function (aSuggestions /*:Array*/
         this.layer.appendChild(oDiv);
     }
     
-    this.layer.style.left = this.textbox.marginLeft + "px";
-    this.layer.style.top = (this.textbox.marginTop + this.textbox.offsetHeight) + "px";
+    //this.layer.style.left = this.textbox.marginLeft + "px";
+    //this.layer.style.top = (this.textbox.offsetHeight) + "px";
     this.layer.style.visibility = "visible";
 
 };
