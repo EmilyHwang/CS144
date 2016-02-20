@@ -149,6 +149,7 @@
 									position: results[0].geometry.location
 								});
 							} else {
+								console.log("Geocoding failed");
 							  map.setZoom(1);
 							}
 						});
