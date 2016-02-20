@@ -55,7 +55,7 @@
 							<a href="#">&larr; Older</a>
 						<% } else { %>
 							<li class="previous">
-							<a href="./search?q=<%= request.getAttribute("q") %>&numresultsToSkip= <%= (Integer)request.getAttribute("numSkip") - 10 %>&numresultsToReturn=10">&larr; Older</a>
+							<a href="./search?q=<%= request.getAttribute("q") %>&numresultsToSkip=<%= (Integer)request.getAttribute("numSkip") - 10 %>&numresultsToReturn=10">&larr; Older</a>
 						<% } %>
 						</li>
 		  			<li class="next"><a href="./search?q=<%= request.getAttribute("q") %>&numresultsToSkip=<%= (Integer)request.getAttribute("numSkip") + 10 %>&numresultsToReturn=10">Newer &rarr;</a></li>
