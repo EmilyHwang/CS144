@@ -108,62 +108,63 @@
 					</tbody>
 				</table>
 			<% } %>
-		</div>
-		<h3>Location</h3>
-		<script type="text/javascript" 
-			src="http://maps.google.com/maps/api/js?sensor=false"> 
-		</script> 
-		<script type="text/javascript"> 
-			function initialize() { 
-				var latlng = new google.maps.LatLng(-34.397, 150.644);
-				var location = null;
-				var latitude = null;
-				var longitude = null;
-				
-				<% if (item != null) {%>
-					location = "<%=item.getLocation().get(0) + ", " + item.getCountry()%>";
-					latitude = "<%=item.getLocation().get(1)%>";
-					longitude = "<%=item.getLocation().get(2)%>";
-				<% }%>
-				
-				if(latitude && longitude) {
-					latlng = new google.maps.LatLng(latitude, longitude);
-				} 
-				
-				var myOptions = { 
-					zoom: 14, // default is 8  
-					center: latlng, 
-					mapTypeId: google.maps.MapTypeId.ROADMAP 
-				}
-			
-				var map = new google.maps.Map(document.getElementById("map_canvas"), 
-					myOptions); 
-				
-				if (!(latitude && longitude)){
-					var geocoder = new google.maps.Geocoder();
+			<h3>Map</h3>
+			<script type="text/javascript" 
+				src="http://maps.google.com/maps/api/js?sensor=false"> 
+			</script> 
+			<script type="text/javascript"> 
+				function initialize() { 
+					var latlng = new google.maps.LatLng(-34.397, 150.644);
+					var location = null;
+					var latitude = null;
+					var longitude = null;
 					
-					geocoder.geocode({'address': location}, function(results, status){
-						if (status === google.maps.GeocoderStatus.OK) {
-							map.setCenter(results[0].geometry.location);
-							var marker = new google.maps.Marker({
-								map: map,
-								position: results[0].geometry.location
-							});
-						} else {
-						  map.setZoom(1);
-						}
-					});
-				} else {
-					var marker = new google.maps.Marker({
-						map: map,
-						position: latlng
-					});
-				}
-			} 
-		</script> 
-		<div id="map_canvas" style="width:500px; height:400px"></div>
-		<script type="text/javascript"> 
-			initialize();
-		</script>
+					<% if (item != null) {%>
+						location = "<%=item.getLocation().get(0) + ", " + item.getCountry()%>";
+						latitude = "<%=item.getLocation().get(1)%>";
+						longitude = "<%=item.getLocation().get(2)%>";
+					<% }%>
+					
+					if(latitude && longitude) {
+						latlng = new google.maps.LatLng(latitude, longitude);
+					} 
+					
+					var myOptions = { 
+						zoom: 14, // default is 8  
+						center: latlng, 
+						mapTypeId: google.maps.MapTypeId.ROADMAP 
+					}
+				
+					var map = new google.maps.Map(document.getElementById("map_canvas"), 
+						myOptions); 
+					
+					if (!(latitude && longitude)){
+						var geocoder = new google.maps.Geocoder();
+						
+						geocoder.geocode({'address': location}, function(results, status){
+							if (status === google.maps.GeocoderStatus.OK) {
+								map.setCenter(results[0].geometry.location);
+								var marker = new google.maps.Marker({
+									map: map,
+									position: results[0].geometry.location
+								});
+							} else {
+							  map.setZoom(1);
+							}
+						});
+					} else {
+						var marker = new google.maps.Marker({
+							map: map,
+							position: latlng
+						});
+					}
+				} 
+			</script> 
+			<div id="map_canvas" style="width:100%; height:400px"></div>
+			<script type="text/javascript"> 
+				initialize();
+			</script>
+		</div>
+
 	</body>
 </html>
