@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -43,40 +44,50 @@ public class ItemServlet extends HttpServlet implements Servlet {
       } else {
         request.setAttribute("empty", false);
 
-  			AuctionSearchClient newSearch = new AuctionSearchClient();
-  			String xmlResult = newSearch.getXMLDataForItemId(itemId);
+        // For project5, we will add HttpSession and store the item information using cookies
+        HttpSession session = request.getSession(true);
+        Item item = (Item)session.getAttribute("Item" + itemId);
+        if (item != null) {
+          // If we have already accessed this item, no need to go to server
 
-        if (xmlResult == "") {
-          request.setAttribute("not_found", true);
         } else {
-          request.setAttribute("not_found", false);
+          AuctionSearchClient newSearch = new AuctionSearchClient();
+          String xmlResult = newSearch.getXMLDataForItemId(itemId);
 
-    			// We are going to use Project 2 to parse the xml string
-    			Document doc = null;
-    			DocumentBuilder builder = null;
+          if (xmlResult == "") {
+            request.setAttribute("not_found", true);
+          } else {
+            request.setAttribute("not_found", false);
 
-    			try {
-    				DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-    				factory.setValidating(false);
-    				factory.setIgnoringElementContentWhitespace(true);      
-    				builder = factory.newDocumentBuilder();
-    				InputSource is = new InputSource(new StringReader(xmlResult));
-    				doc = builder.parse(is);
-    			} catch (IOException e) {
-            e.printStackTrace();
-            System.exit(3);
-          } catch (SAXException e) {
-            System.out.println("Parsing error on file ");
-            e.printStackTrace();
-            System.exit(3);
-          } catch (ParserConfigurationException e) {
-          	System.out.println("Parsing configuration error");
-          	e.printStackTrace();
-            System.exit(3);
+            // We are going to use Project 2 to parse the xml string
+            Document doc = null;
+            DocumentBuilder builder = null;
+
+            try {
+              DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+              factory.setValidating(false);
+              factory.setIgnoringElementContentWhitespace(true);      
+              builder = factory.newDocumentBuilder();
+              InputSource is = new InputSource(new StringReader(xmlResult));
+              doc = builder.parse(is);
+            } catch (IOException e) {
+              e.printStackTrace();
+              System.exit(3);
+            } catch (SAXException e) {
+              System.out.println("Parsing error on file ");
+              e.printStackTrace();
+              System.exit(3);
+            } catch (ParserConfigurationException e) {
+              System.out.println("Parsing configuration error");
+              e.printStackTrace();
+              System.exit(3);
+            }
+
+            item = parseItem(doc);
+            session.setAttribute("Item" + itemId, item);
           }
 
-          Item item = parseItem(doc);
-          request.setAttribute("item", item);        
+          request.setAttribute("item", item);
         }
       }
 			request.getRequestDispatcher("/ItemResult.jsp").forward(request, response);
