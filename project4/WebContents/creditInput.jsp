@@ -22,26 +22,31 @@
 						<fieldset>
 							<legend>Please provide your credit card information</legend>
 							<div class="row">
-								<div class="col-sm-2 item-title">Item ID</div>
-								<div class="col-sm-10"><%= item.getId() %></div>
+								<div class="col-md-3 item-title">Item ID</div>
+								<div class="col-md-9"><%= item.getId() %></div>
 							</div>
 							<div class="row">
-								<div class="col-sm-2 item-title">Item Name</div>
-								<div class="col-sm-10"><%= item.getName() %></div>
+								<div class="col-md-3 item-title">Item Name</div>
+								<div class="col-md-9"><%= item.getName() %></div>
 							</div>
 							<div class="row">
-								<div class="col-sm-2 item-title">Item Buy Price</div>
-								<div class="col-sm-10"><%= item.getBuy_price() %></div>
+								<div class="col-md-3 item-title">Item Buy Price</div>
+								<div class="col-md-9"><%= item.getBuy_price() %></div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-2 control-label">Credit Card #</label>
-					      <div class="col-sm-10">
-					        <input type="text" name="creditCard" class="form-control" placeholder="Please Enter 16 digits number">
+								<label class="col-md-3" style="line-height: 22pt;">Credit Card #</label>
+					      <div class="col-md-9">
+					        <input type="text" name="creditNum" class="form-control" placeholder="Please Enter 16 digits number">
 					      </div>
 							</div>
+							<div class="form-group hidden">
+					      <input type="text" name="id" class="form-control" value="<%= item.getId() %>">
+							</div>
 							<div class="form-group">
-								<button type="reset" class="btn btn-default">Cancel</button>
-	       			 	<button type="submit" class="btn btn-primary">Submit</button>
+								<div class="col-lg-10 col-lg-offset-2">
+									<button type="reset" class="btn btn-default">Cancel</button>
+		       			 	<button type="submit" class="btn btn-primary">Submit</button>
+		       			 </div>
 							</div>
 					  </fieldset>
 					</form>
