@@ -12,6 +12,15 @@ public class CreditCardServlet extends HttpServlet implements Servlet {
 	public CreditCardServlet() {}
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  	String itemId = request.getParameter("id");
+		HttpSession session = request.getSession(true);
+		Item item = (Item)session.getAttribute("Item" + itemId);
+
+		if (item == null) {
+			request.setAttribute("error", "Invalid access path.");
+		} else {
+			request.setAttribute("item", "item");
+		}
   	request.getRequestDispatcher("/creditInput.jsp").forward(request, response);
   }
 }
