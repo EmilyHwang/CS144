@@ -18,7 +18,7 @@
 			<% } else { %>
 				<% item = (Item)request.getAttribute("item"); %>
 				<div class="well bs-component" >
-					<form class="form-horizontal" action="./confirmation" method="GET">
+					<form class="form-horizontal" action="https://<%=request.getServerName()%>:8443<%= request.getContextPath()%>/confirmation" method="GET">
 						<fieldset>
 							<legend>Please provide your credit card information</legend>
 							<div class="row">
@@ -36,7 +36,7 @@
 							<div class="form-group">
 								<label class="col-md-3" style="line-height: 22pt;">Credit Card #</label>
 					      <div class="col-md-9">
-					        <input type="text" name="creditNum" class="form-control" placeholder="Please Enter 16 digits number">
+					        <input type="text" name="creditNum" class="form-control" placeholder="Please Enter a 16 digit number">
 					      </div>
 							</div>
 							<div class="form-group hidden">
