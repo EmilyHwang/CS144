@@ -54,8 +54,9 @@
 							<td>Buy Price</td>
 							<td>
 								<%= item.getBuy_price() %>
-								<% if (item.getBuy_price() != "") %>
+								<% if (item.getBuy_price() != "") { %>
 									<a href="./credit?id=<%= item.getId() %>" class="btn btn-info" style="float: right;">Pay Now</a>						 
+								<% } %>
 							</td>
 						</tr>
 						<tr>
