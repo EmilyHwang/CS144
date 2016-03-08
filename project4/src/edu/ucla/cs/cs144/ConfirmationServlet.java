@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
 public class ConfirmationServlet extends HttpServlet implements Servlet {
 	public ConfirmationServlet() {}
 
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
   	String itemId = request.getParameter("id");
 		HttpSession session = request.getSession(true);
 		Item item = (Item)session.getAttribute("Item" + itemId);

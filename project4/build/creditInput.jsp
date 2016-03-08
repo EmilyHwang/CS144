@@ -18,7 +18,7 @@
 			<% } else { %>
 				<% item = (Item)request.getAttribute("item"); %>
 				<div class="well bs-component" >
-					<form class="form-horizontal" action="./confirmation" method="GET">
+					<form class="form-horizontal" action="./confirmation" method="POST">
 						<fieldset>
 							<legend>Please provide your credit card information</legend>
 							<div class="row">
