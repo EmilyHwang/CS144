@@ -49,7 +49,7 @@ public class ItemServlet extends HttpServlet implements Servlet {
         Item item = (Item)session.getAttribute("Item" + itemId);
         if (item != null) {
           // If we have already accessed this item, no need to go to server
-
+          request.setAttribute("not_found", false);
         } else {
           AuctionSearchClient newSearch = new AuctionSearchClient();
           String xmlResult = newSearch.getXMLDataForItemId(itemId);
@@ -86,9 +86,8 @@ public class ItemServlet extends HttpServlet implements Servlet {
             item = parseItem(doc);
             session.setAttribute("Item" + itemId, item);
           }
-
-          request.setAttribute("item", item);
         }
+        request.setAttribute("item", item);
       }
 			request.getRequestDispatcher("/ItemResult.jsp").forward(request, response);
     }
